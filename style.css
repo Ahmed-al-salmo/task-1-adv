@@ -1,3 +1,54 @@
+.add-book-form-hidden{
+    display: none !important;
+}
+.add-book-form{
+    display: block;
+    width:80%;
+    height:80%;
+    padding: 10px;
+    background-color: #777;
+    position:fixed;
+    top: 30px;
+    left:50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px 5px black;
+}
+.add-book-form h1{
+    color: white;
+    margin-left: 20px;
+}
+.add-book-form input{
+    width:90% !important;
+    padding: 10px;
+    margin:10px 5%;
+}
+.add-book-form button{
+    border: none;
+    border-radius: 10px;
+    width:42%;
+    padding: 10px 0px;
+    font-weight: bold;
+    margin-left: 5%;
+    margin-top: 20px;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+}
+.cancel-BTN{
+    background-color: rgb(211, 0, 0) !important;
+}
+.cancel-BTN:hover{
+    background-color: rgb(255, 0, 0) !important;
+    
+}
+.save-BTN{
+    background-color: rgb(3, 221, 3);
+}
+.save-BTN:hover{
+    background-color: rgb(0, 255, 0);
+}
 .cards-container::-webkit-scrollbar-thumb{
     background: white;
     border-radius: 10px;
@@ -15,12 +66,13 @@ body{
     height:100vh ;
     margin: 0%;
     overflow-x: hidden;
+    width: screen;
 }
 .search-box{
     position: relative;
 }
 
-.search-bar,.select{
+.search-bar,.select ,.add-book-form input{
     padding: 10px 0px 10px 10px ;
     border-radius: 10px;
     width: 40%;
@@ -34,23 +86,38 @@ body{
     /* margin-top: 15px; */
     transform: translateX(-50%);
 }
-.search-bar:focus,.select:focus{
+.search-bar:focus,.select:focus, .add-book-form input:focus{
     border-color : black;
 }
 
-h1 {
-    margin-left: 20px;
+.add-book-BTN {
+    all: unset;
+    margin:0px 10px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(41, 41, 248);
+    border-radius: 10px;
+    padding:10px 20px;
+    transition: padding 0.25s ease;
+}
+.add-book-BTN:hover{
+    background-color: rgb(0, 0, 243);
+    cursor: pointer;
+    padding :12px 22px;
+    box-shadow: 3px 3px 10px 2px rgb(177, 175, 175);
 }
 .cards-container{
-    /* background-color: red; */
+
     height: 78vh;
+    width: 100%;
     overflow-y: auto;
     display: flex;
     gap: 5px;
     flex-wrap: wrap;
     justify-content: center;
     padding: 5px 0px;
-    margin:0px 4px
+    margin: 4px 0px;
 }
 .card {
     background-color: #EEE;
@@ -72,8 +139,7 @@ h1 {
 }
 .card button{
     padding:10px 0px;
-    margin-left: 50%;
-    transform: translateX(-50%);
+    margin-left: 25px;
     width: 250px ;
     border:none;
     border-radius: 10px;

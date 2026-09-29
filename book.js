@@ -113,7 +113,6 @@ class LibraryBooks {
         cardDive.appendChild(cardp1);
         cardDive.appendChild(cardp2);
         cardDive.appendChild(cardp3);
-        // cardDive.appendChild(cardp4)
         cardDive.appendChild(showInfoBTN);
         cardDive.appendChild(cardButton);
         cardDive.appendChild(deleteCardBTN);
@@ -127,66 +126,15 @@ class LibraryBooks {
             showCards('');
         });
     }
-    cardShaping1(card) {
-        card.map((item) => {
-            const cardDive = document.createElement('div');
-            const cardH1 = document.createElement('h1');
-            const cardp1 = document.createElement('p');
-            const cardp2 = document.createElement('p');
-            const cardp3 = document.createElement('p');
-            const cardp4 = document.createElement('p');
-            const cardButton = document.createElement('button');
-            const deleteCardBTN = document.createElement('button');
-            const showInfoBTN = document.createElement('button');
-            showInfoBTN.innerHTML = 'info';
-            showInfoBTN.className = 'info-BTN';
-            const textNodeTitle = document.createTextNode(item.title);
-            const textNodeAuthor = document.createTextNode(item.author);
-            const textNodecategory = document.createTextNode(item.category);
-            const textNodeIsAvailable = item.isAvailable ?
-                document.createTextNode('available') :
-                document.createTextNode('not available');
-            const textNodeBTN = item.isAvailable ?
-                document.createTextNode('change status to not available') :
-                document.createTextNode('change status to available');
-            deleteCardBTN.innerHTML = 'Delete';
-            deleteCardBTN.className = 'delete-BTN';
-            cardDive.className = 'card';
-            cardH1.appendChild(textNodeTitle);
-            cardp1.appendChild(textNodeAuthor);
-            cardp2.appendChild(textNodecategory);
-            cardp3.appendChild(textNodeIsAvailable);
-            cardButton.appendChild(textNodeBTN);
-            cardDive.appendChild(cardH1);
-            cardDive.appendChild(cardp1);
-            cardDive.appendChild(cardp2);
-            cardDive.appendChild(cardp3);
-            // cardDive.appendChild(cardp4)
-            cardDive.appendChild(showInfoBTN);
-            cardDive.appendChild(cardButton);
-            cardDive.appendChild(deleteCardBTN);
-            cardContainer.appendChild(cardDive);
-            // cardButton.addEventListener('click',()=>{
-            //     libraryInstance.toggleAvailability(index);
-            //     showCards('')
-            // })
-            // deleteCardBTN.addEventListener('click',()=>{
-            //     libraryInstance.removeBooke(index)
-            //     showCards('')
-            // })
-        });
-        // showInfoBTN.addEventListener('click',()=>{
-        //     cardp4.innerHTML=this.books[index].locationCode;
-        //     showCards('')
-        // })
-    }
 }
 const libraryInstance = new LibraryBooks();
 libraryInstance.addBook("harry potter", "Ahmed", "advanture", true, '12');
 libraryInstance.addBook("harry potter2", "Ahmed2", "advanture", true, '13');
 libraryInstance.addBook('avangers', 'ali', 'heros', true, '14');
-const booksArray = libraryInstance.getBooks();
+libraryInstance.addBook('avangers', 'ali', 'heros', true, '14');
+libraryInstance.addBook('avangers', 'ali', 'heros', true, '14');
 const showCards = (searchValue) => {
+    const booksArray = libraryInstance.getBooks();
     cardContainer.innerHTML = '';
     booksArray.map((card, index) => {
         if (card.getAuthor().toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -213,14 +161,33 @@ categoryList.map((val) => {
     option.value = val;
     option.innerHTML = val;
     selectFeiled.appendChild(option);
-    option.addEventListener('click', () => {
-        console.log('clicked ' + val);
-    });
 });
 searchBox.appendChild(selectFeiled);
 selectFeiled.addEventListener('change', () => {
-    console.log('clicked ' + selectFeiled.value);
-    // libraryInstance.filterByCategory(selectFeiled.value)
     cardContainer.innerHTML = '';
     showCards(selectFeiled.value);
 });
+//// Bubble Bag
+const inputs = document.querySelectorAll('.add-book-form input');
+const buttons = document.querySelectorAll('.add-book-form button');
+let addBookForm = document.querySelector('.add-book-form');
+let addBookBTN = document.querySelector('.add-book-BTN');
+buttons[0]?.addEventListener('click', () => {
+    libraryInstance.addBook(inputs[0].value, inputs[1].value, inputs[2].value, true, inputs[3].value);
+    if (addBookForm) {
+        addBookForm.className = 'add-book-form-hidden';
+    }
+    showCards('');
+});
+buttons[1]?.addEventListener('click', () => {
+    if (addBookForm) {
+        addBookForm.className = 'add-book-form-hidden';
+    }
+    showCards('');
+});
+addBookBTN?.addEventListener('click', () => {
+    if (addBookForm) {
+        addBookForm.className = 'add-book-form';
+    }
+});
+console.log(addBookForm);

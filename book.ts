@@ -161,13 +161,15 @@ const libraryInstance = new LibraryBooks();
 libraryInstance.addBook("harry potter","Ahmed","advanture",true,'12');
 libraryInstance.addBook("harry potter2","Ahmed2","advanture",true,'13');
 libraryInstance.addBook('avangers','ali','heros',true,'14')
+libraryInstance.addBook('avangers','ali','heros',true,'14')
+libraryInstance.addBook('avangers','ali','heros',true,'14')
 
 
-const booksArray:ReferenceBook[] =libraryInstance.getBooks()
+
 
 
 const showCards = (searchValue:string)=> {
-    
+    const booksArray:ReferenceBook[] =libraryInstance.getBooks()
     cardContainer.innerHTML='';
     booksArray.map((card,index)=>{
 
@@ -205,3 +207,40 @@ selectFeiled.addEventListener('change',()=>{
     cardContainer.innerHTML='';
     showCards(selectFeiled.value)
 })
+
+
+//// Bubble Bag
+
+
+const inputs = document.querySelectorAll('.add-book-form input') 
+const buttons = document.querySelectorAll('.add-book-form button');
+let addBookForm = document.querySelector('.add-book-form')
+let addBookBTN = document.querySelector('.add-book-BTN')
+
+buttons[0]?.addEventListener('click',()=>{
+    libraryInstance.addBook((inputs[0] as HTMLInputElement).value
+        ,(inputs[1] as HTMLInputElement).value
+        ,(inputs[2] as HTMLInputElement).value
+        ,true
+        ,(inputs[3] as HTMLInputElement).value
+    );
+    if (addBookForm) {
+        addBookForm.className = 'add-book-form-hidden';
+    }
+
+    showCards('');
+})
+buttons[1]?.addEventListener('click',()=>{
+    if (addBookForm) {
+        addBookForm.className = 'add-book-form-hidden';
+    }
+    showCards('');
+})
+
+
+addBookBTN?.addEventListener('click',()=>{
+    if (addBookForm) {
+        addBookForm.className = 'add-book-form';
+    }
+})
+console.log(addBookForm)
