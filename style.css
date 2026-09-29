@@ -1,0 +1,139 @@
+.cards-container::-webkit-scrollbar-thumb{
+    background: white;
+    border-radius: 10px;
+}
+.cards-container::-webkit-scrollbar-track{
+    background-color: #acabab;
+    border-radius: 10px;
+}
+.cards-container::-webkit-scrollbar{
+    width: 10px;
+}
+body{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: #DDD;
+    height:100vh ;
+    margin: 0%;
+    overflow-x: hidden;
+}
+.search-box{
+    position: relative;
+}
+
+.search-bar,.select{
+    padding: 10px 0px 10px 10px ;
+    border-radius: 10px;
+    width: 40%;
+    outline: none;
+    border: none;
+    border :2px solid transparent;
+    transition: border 0.5s ease;
+    font-size: 17px;
+    margin:5px 0px 5px ;
+    margin-left:50% ;
+    /* margin-top: 15px; */
+    transform: translateX(-50%);
+}
+.search-bar:focus,.select:focus{
+    border-color : black;
+}
+
+h1 {
+    margin-left: 20px;
+}
+.cards-container{
+    /* background-color: red; */
+    height: 78vh;
+    overflow-y: auto;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 5px 0px;
+    margin:0px 4px
+}
+.card {
+    background-color: #EEE;
+    width:300px;
+    height: 350px;
+    border-radius: 10px ;
+    transition: width 0.25s ease;
+}
+.card:hover{
+    width:305px;
+    
+
+}
+.card h2{
+    padding: 0px 10px ;
+}
+.card p{
+    padding: 0px 20px ;
+}
+.card button{
+    padding:10px 0px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 250px ;
+    border:none;
+    border-radius: 10px;
+    background-color: rgb(39, 39, 175);
+    color:white;
+    font-size: 17px;
+    font-weight: 100;
+    transition: width 0.5s ease;
+}
+.card button:hover{
+    cursor: pointer;
+    width: 245px;
+    background-color: rgb(43, 43, 211);
+}
+
+.delete-BTN{
+    background-color: red !important;
+    color:white !important;
+    margin-top: 5px;
+}
+.delete-BTN:hover{
+    background-color: rgb(255, 56, 56) !important;
+}
+
+.info-BTN{
+    padding: 3px  !important;
+    margin-bottom:10px ;
+    background-color: gray !important;
+}
+@media (max-width:768px){
+    .card {
+        width:47%;
+        margin: 0px 1%;
+        transition:  width 0.25s ease;
+    }
+    .card:hover{
+        width:46%;
+        
+    }
+    .search-bar,.select{
+        width: 70%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+
+}
+@media (max-width:576px){
+    .card {
+        width:96%;
+        margin: 0px 2%;
+        transition:  width 0.25s ease;
+    }
+    .card:hover{
+        width:94%;
+        
+    }
+    .card button{
+        margin-left: 2%;
+        transform: none;
+        transition: width 0.5s ease;
+    }
+}
+
