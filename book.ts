@@ -39,15 +39,7 @@ class ReferenceBook extends BookDetails{
     
     constructor(title:string,author:string,category:string,isAvailable:boolean, locationCode:string){
         super(title,author,category,isAvailable);
-        
         this.locationCode=locationCode;
-        categoryList.push(category);
-        
-        categoryList.push(category);
-        const uniqueCategories = [...new Set(categoryList)];
-        categoryList.length = 0;
-        categoryList.push(...uniqueCategories);
-        console.log(categoryList)
     }
     getLocationCode(){
         return this.locationCode
@@ -158,31 +150,30 @@ class LibraryBooks {
 
 
 const libraryInstance = new LibraryBooks();
-libraryInstance.addBook("harry potter","Ahmed","advanture",true,'12');
-libraryInstance.addBook("harry potter2","Ahmed2","advanture",true,'13');
-libraryInstance.addBook('avangers','ali','heros',true,'14')
-libraryInstance.addBook('avangers','ali','heros',true,'14')
-libraryInstance.addBook('avangers','ali','heros',true,'14')
-
-
-
 
 
 const showCards = (searchValue:string)=> {
     const booksArray:ReferenceBook[] =libraryInstance.getBooks()
     cardContainer.innerHTML='';
-    booksArray.map((card,index)=>{
-
-    if(card.getAuthor().toLowerCase().includes(searchValue.toLowerCase()) || 
-    card.getCategory().toLowerCase().includes(searchValue.toLowerCase()) ||
-    card.getCategory().toLowerCase()===searchValue.toLowerCase() ){
-        libraryInstance.cardShaping(index)
+    if(booksArray.length>0){
+        booksArray.map((card,index)=>{
+            if(card.getAuthor().toLowerCase().includes(searchValue.toLowerCase()) || 
+            card.getCategory().toLowerCase().includes(searchValue.toLowerCase()) ||
+            card.getCategory().toLowerCase()===searchValue.toLowerCase() ){
+                libraryInstance.cardShaping(index)
+            }
+            else if( searchValue.trim()==='' ||  searchValue.trim().toLowerCase()==='all'  ){
+                libraryInstance.cardShaping(index)
+            }
+            
+        })
+    }else{
+        const noBooksFound:HTMLElement = document.createElement('h1');
+        noBooksFound.style.textAlign='center';
+        noBooksFound.innerHTML='No Books Found...'
+        cardContainer.appendChild(noBooksFound)
     }
-    else if( searchValue.trim()==='' ||  searchValue.trim().toLowerCase()==='all'  ){
-        libraryInstance.cardShaping(index)
-    }
-    
-})}
+}
 
 showCards('');
 
@@ -194,14 +185,19 @@ createInputFeild.addEventListener('input',()=>{
 })
 
 const selectFeiled:HTMLSelectElement = document.createElement('select');
-selectFeiled.className='select'
-categoryList.map((val:string)=>{
-    const option = document.createElement('option');
-    option.value = val;
-    option.innerHTML = val;
-    selectFeiled.appendChild(option);
-})
-searchBox.appendChild(selectFeiled);
+
+const createSelect = ()=>{
+    selectFeiled.innerHTML=''
+    selectFeiled.className='select'
+    categoryList.map((val:string)=>{
+        const option = document.createElement('option');
+        option.value = val;
+        option.innerHTML = val;
+        selectFeiled.appendChild(option);
+    })
+    searchBox.appendChild(selectFeiled);
+}
+createSelect()
 
 selectFeiled.addEventListener('change',()=>{
     cardContainer.innerHTML='';
@@ -224,10 +220,15 @@ buttons[0]?.addEventListener('click',()=>{
         ,true
         ,(inputs[3] as HTMLInputElement).value
     );
+    categoryList.push((inputs[2] as HTMLInputElement).value);
+        const uniqueCategories = [...new Set(categoryList)];
+        categoryList.length = 0;
+        categoryList.push(...uniqueCategories);
+        console.log(categoryList)
     if (addBookForm) {
         addBookForm.className = 'add-book-form-hidden';
     }
-
+    createSelect();
     showCards('');
 })
 buttons[1]?.addEventListener('click',()=>{
@@ -243,4 +244,3 @@ addBookBTN?.addEventListener('click',()=>{
         addBookForm.className = 'add-book-form';
     }
 })
-console.log(addBookForm)

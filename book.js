@@ -32,12 +32,12 @@ class ReferenceBook extends BookDetails {
     constructor(title, author, category, isAvailable, locationCode) {
         super(title, author, category, isAvailable);
         this.locationCode = locationCode;
-        categoryList.push(category);
-        categoryList.push(category);
-        const uniqueCategories = [...new Set(categoryList)];
-        categoryList.length = 0;
-        categoryList.push(...uniqueCategories);
-        console.log(categoryList);
+        // categoryList.push(category);
+        // categoryList.push(category);
+        // const uniqueCategories = [...new Set(categoryList)];
+        // categoryList.length = 0;
+        // categoryList.push(...uniqueCategories);
+        // console.log(categoryList)
     }
     getLocationCode() {
         return this.locationCode;
@@ -128,24 +128,27 @@ class LibraryBooks {
     }
 }
 const libraryInstance = new LibraryBooks();
-libraryInstance.addBook("harry potter", "Ahmed", "advanture", true, '12');
-libraryInstance.addBook("harry potter2", "Ahmed2", "advanture", true, '13');
-libraryInstance.addBook('avangers', 'ali', 'heros', true, '14');
-libraryInstance.addBook('avangers', 'ali', 'heros', true, '14');
-libraryInstance.addBook('avangers', 'ali', 'heros', true, '14');
 const showCards = (searchValue) => {
     const booksArray = libraryInstance.getBooks();
     cardContainer.innerHTML = '';
-    booksArray.map((card, index) => {
-        if (card.getAuthor().toLowerCase().includes(searchValue.toLowerCase()) ||
-            card.getCategory().toLowerCase().includes(searchValue.toLowerCase()) ||
-            card.getCategory().toLowerCase() === searchValue.toLowerCase()) {
-            libraryInstance.cardShaping(index);
-        }
-        else if (searchValue.trim() === '' || searchValue.trim().toLowerCase() === 'all') {
-            libraryInstance.cardShaping(index);
-        }
-    });
+    if (booksArray.length > 0) {
+        booksArray.map((card, index) => {
+            if (card.getAuthor().toLowerCase().includes(searchValue.toLowerCase()) ||
+                card.getCategory().toLowerCase().includes(searchValue.toLowerCase()) ||
+                card.getCategory().toLowerCase() === searchValue.toLowerCase()) {
+                libraryInstance.cardShaping(index);
+            }
+            else if (searchValue.trim() === '' || searchValue.trim().toLowerCase() === 'all') {
+                libraryInstance.cardShaping(index);
+            }
+        });
+    }
+    else {
+        const noBooksFound = document.createElement('h1');
+        noBooksFound.style.textAlign = 'center';
+        noBooksFound.innerHTML = 'No Books Found...';
+        cardContainer.appendChild(noBooksFound);
+    }
 };
 showCards('');
 createInputFeild.addEventListener('input', () => {
@@ -155,14 +158,26 @@ createInputFeild.addEventListener('input', () => {
     libraryInstance.filteredBooks;
 });
 const selectFeiled = document.createElement('select');
-selectFeiled.className = 'select';
-categoryList.map((val) => {
-    const option = document.createElement('option');
-    option.value = val;
-    option.innerHTML = val;
-    selectFeiled.appendChild(option);
-});
-searchBox.appendChild(selectFeiled);
+const createSelect = () => {
+    selectFeiled.innerHTML = '';
+    selectFeiled.className = 'select';
+    categoryList.map((val) => {
+        const option = document.createElement('option');
+        option.value = val;
+        option.innerHTML = val;
+        selectFeiled.appendChild(option);
+    });
+    searchBox.appendChild(selectFeiled);
+};
+createSelect();
+// selectFeiled.className='select'
+// categoryList.map((val:string)=>{
+//     const option = document.createElement('option');
+//     option.value = val;
+//     option.innerHTML = val;
+//     selectFeiled.appendChild(option);
+// })
+// searchBox.appendChild(selectFeiled);
 selectFeiled.addEventListener('change', () => {
     cardContainer.innerHTML = '';
     showCards(selectFeiled.value);
@@ -174,9 +189,15 @@ let addBookForm = document.querySelector('.add-book-form');
 let addBookBTN = document.querySelector('.add-book-BTN');
 buttons[0]?.addEventListener('click', () => {
     libraryInstance.addBook(inputs[0].value, inputs[1].value, inputs[2].value, true, inputs[3].value);
+    categoryList.push(inputs[2].value);
+    const uniqueCategories = [...new Set(categoryList)];
+    categoryList.length = 0;
+    categoryList.push(...uniqueCategories);
+    console.log(categoryList);
     if (addBookForm) {
         addBookForm.className = 'add-book-form-hidden';
     }
+    createSelect();
     showCards('');
 });
 buttons[1]?.addEventListener('click', () => {
@@ -190,4 +211,3 @@ addBookBTN?.addEventListener('click', () => {
         addBookForm.className = 'add-book-form';
     }
 });
-console.log(addBookForm);
