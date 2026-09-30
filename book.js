@@ -32,12 +32,6 @@ class ReferenceBook extends BookDetails {
     constructor(title, author, category, isAvailable, locationCode) {
         super(title, author, category, isAvailable);
         this.locationCode = locationCode;
-        // categoryList.push(category);
-        // categoryList.push(category);
-        // const uniqueCategories = [...new Set(categoryList)];
-        // categoryList.length = 0;
-        // categoryList.push(...uniqueCategories);
-        // console.log(categoryList)
     }
     getLocationCode() {
         return this.locationCode;
@@ -152,7 +146,6 @@ const showCards = (searchValue) => {
 };
 showCards('');
 createInputFeild.addEventListener('input', () => {
-    console.log(createInputFeild.value.trim() === '');
     libraryInstance.searchBooks(createInputFeild.value);
     showCards(createInputFeild.value);
     libraryInstance.filteredBooks;
@@ -170,14 +163,6 @@ const createSelect = () => {
     searchBox.appendChild(selectFeiled);
 };
 createSelect();
-// selectFeiled.className='select'
-// categoryList.map((val:string)=>{
-//     const option = document.createElement('option');
-//     option.value = val;
-//     option.innerHTML = val;
-//     selectFeiled.appendChild(option);
-// })
-// searchBox.appendChild(selectFeiled);
 selectFeiled.addEventListener('change', () => {
     cardContainer.innerHTML = '';
     showCards(selectFeiled.value);
@@ -193,16 +178,23 @@ buttons[0]?.addEventListener('click', () => {
     const uniqueCategories = [...new Set(categoryList)];
     categoryList.length = 0;
     categoryList.push(...uniqueCategories);
-    console.log(categoryList);
     if (addBookForm) {
         addBookForm.className = 'add-book-form-hidden';
     }
+    inputs[0].value = '';
+    inputs[1].value = '';
+    inputs[2].value = '';
+    inputs[3].value = '';
     createSelect();
     showCards('');
 });
 buttons[1]?.addEventListener('click', () => {
     if (addBookForm) {
         addBookForm.className = 'add-book-form-hidden';
+        inputs[0].value = '';
+        inputs[1].value = '';
+        inputs[2].value = '';
+        inputs[3].value = '';
     }
     showCards('');
 });

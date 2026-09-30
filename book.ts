@@ -178,7 +178,6 @@ const showCards = (searchValue:string)=> {
 showCards('');
 
 createInputFeild.addEventListener('input',()=>{
-    console.log(createInputFeild.value.trim()==='')
     libraryInstance.searchBooks(createInputFeild.value);
     showCards(createInputFeild.value)
     libraryInstance.filteredBooks
@@ -224,16 +223,23 @@ buttons[0]?.addEventListener('click',()=>{
         const uniqueCategories = [...new Set(categoryList)];
         categoryList.length = 0;
         categoryList.push(...uniqueCategories);
-        console.log(categoryList)
     if (addBookForm) {
         addBookForm.className = 'add-book-form-hidden';
     }
+    (inputs[0] as HTMLInputElement).value = '';
+    (inputs[1] as HTMLInputElement).value='';
+    (inputs[2] as HTMLInputElement).value='';
+    (inputs[3] as HTMLInputElement).value='';
     createSelect();
     showCards('');
 })
 buttons[1]?.addEventListener('click',()=>{
     if (addBookForm) {
         addBookForm.className = 'add-book-form-hidden';
+        (inputs[0] as HTMLInputElement).value = '';
+        (inputs[1] as HTMLInputElement).value='';
+        (inputs[2] as HTMLInputElement).value='';
+        (inputs[3] as HTMLInputElement).value='';
     }
     showCards('');
 })
